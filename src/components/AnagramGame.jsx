@@ -49,7 +49,7 @@ export default function AnagramGame({ onFinish }) {
     }
 
     // setCorrectLetters((prev) => prev + (newCorrect - correctLetters));
-    setCorrectLetters((prev) => prev + newCorrect;
+    setCorrectLetters((prev) => prev + newCorrect);
     setWrongLetters((prev) => prev + newWrong); // <- рахуємо всі спроби
 
     if (val === currentWord) {
