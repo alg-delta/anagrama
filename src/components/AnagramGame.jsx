@@ -43,13 +43,16 @@ export default function AnagramGame({ onFinish }) {
     for (let i = 0; i < newLetters.length; i++) {
       if (newLetters[i] === targetLetters[i]) {
         newCorrect++;
+        if (i === 0) {
+          setCorrectLetters((prev) => prev + newCorrect);
+        } else {
+          setCorrectLetters((prev) => prev + (newCorrect - correctLetters));
+        }
       } else {
         newWrong++;
+        setWrongLetters((prev) => prev + newWrong);
       }
     }
-
-    setCorrectLetters((prev) => prev + (newCorrect - correctLetters));
-    setWrongLetters((prev) => prev + newWrong); // <- рахуємо всі спроби
 
     if (val === currentWord) {
       setHasAnswered(true);
