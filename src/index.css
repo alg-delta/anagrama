@@ -98,6 +98,10 @@ input {
   }
 
   .table {
-    width: 90%;
+    max-width: 90%;
+  }
+
+  input {
+    max-width: 90%;
   }
 }
