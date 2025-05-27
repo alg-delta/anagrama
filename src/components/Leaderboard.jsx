@@ -6,7 +6,7 @@ export default function Leaderboard({ leaderboard }) {
   return (
     <div style={{ marginTop: "20px" }}>
       <h2>Рейтинг</h2>
-      <table style={{ borderCollapse: "collapse", width: "100%" }}>
+      <table className="table" style={{ borderCollapse: "collapse" }}>
         <thead>
           <tr>
             <th style={cellStyle}>Місце</th>
