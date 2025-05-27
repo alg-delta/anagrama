@@ -1,4 +1,4 @@
-export const WORDS1 = [
+export const WORDS = [
   "html",
   "css",
   "head",
