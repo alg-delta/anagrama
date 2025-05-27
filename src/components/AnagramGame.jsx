@@ -57,6 +57,8 @@ export default function AnagramGame({ onFinish }) {
     }
   };
 
+  console.log(correctLetters);
+
   // const handleKeyDown = (e) => {
   //   const key = e.key.toLowerCase();
 
