@@ -20,7 +20,13 @@ export default function App() {
       const updated = [...prev, { name: username, score }];
 
       // Сортуємо за кількістю помилок (wrong) за зростанням
-      updated.sort((a, b) => a.score.wrong - b.score.wrong);
+      updated.sort((a, b) => {
+        if (a.score.wrong === b.score.wrong) {
+          return b.score.correct - a.score.correct;
+        } else {
+          return a.score.wrong - b.score.wrong;
+        }
+      });
 
       // Якщо хочеш обмежити до топ-10:
       // return updated.slice(0, 10);
@@ -31,7 +37,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ padding: "20px", width: "800px", margin: "0 auto" }}>
+    <div className="app">
       {!started ? (
         <div>
           <h1 style={{ color: "#c84b76" }}>Гра Анаграма🎈😎</h1>
