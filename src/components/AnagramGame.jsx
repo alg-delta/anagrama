@@ -11,6 +11,7 @@ export default function AnagramGame({ onFinish }) {
   const [input, setInput] = useState("");
   const [round, setRound] = useState(1);
   const [correctLetters, setCorrectLetters] = useState(0);
+  const [correctLettersCurrent, setCorrectLettersCurrent] = useState("");
   const [wrongLetters, setWrongLetters] = useState(0);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [feedback, setFeedback] = useState("");
@@ -43,16 +44,13 @@ export default function AnagramGame({ onFinish }) {
     for (let i = 0; i < newLetters.length; i++) {
       if (newLetters[i] === targetLetters[i]) {
         newCorrect++;
-        if (i === 0) {
-          setCorrectLetters((prev) => prev + newCorrect);
-        } else {
-          setCorrectLetters((prev) => prev + (newCorrect - correctLetters));
-        }
       } else {
         newWrong++;
-        setWrongLetters((prev) => prev + newWrong);
       }
     }
+    setCorrectLettersCurrent(newCorrect);
+    // setCorrectLetters((prev) => prev + (newCorrect - correctLetters));
+    setWrongLetters((prev) => prev + newWrong); // <- рахуємо всі спроби
 
     if (val === currentWord) {
       setHasAnswered(true);
@@ -60,67 +58,16 @@ export default function AnagramGame({ onFinish }) {
     }
   };
 
-  console.log(correctLetters);
-
-  // const handleKeyDown = (e) => {
-  //   const key = e.key.toLowerCase();
-
-  //   // Якщо Backspace — видаляємо останню літеру
-  //   if (key === "backspace") {
-  //     setInput((prev) => {
-  //       const newVal = prev.slice(0, -1);
-  //       updateScores(newVal);
-  //       return newVal;
-  //     });
-  //     e.preventDefault();
-  //     return;
-  //   }
-
-  //   // Дозволені лише літери, що є у слові
-  //   if (key.length === 1 && currentWord.includes(key)) {
-  //     setInput((prev) => {
-  //       if (prev.length >= currentWord.length || hasAnswered) return prev;
-
-  //       const newVal = prev + key;
-  //       updateScores(newVal);
-  //       return newVal;
-  //     });
-  //   }
-  // };
-
-  // // Функція для оновлення правильних/неправильних літер і перевірки відповіді
-  // const updateScores = (val) => {
-  //   const targetLetters = currentWord.split("");
-  //   const newLetters = val.split("");
-
-  //   let newCorrect = 0;
-  //   let newWrong = 0;
-
-  //   for (let i = 0; i < newLetters.length; i++) {
-  //     if (newLetters[i] === targetLetters[i]) {
-  //       newCorrect++;
-  //     } else {
-  //       newWrong++;
-  //     }
-  //   }
-
-  //   // Обчислюємо дельту помилок та правильних літер
-  //   setCorrectLetters((prev) => prev + (newCorrect - correctLetters));
-  //   setWrongLetters((prev) => prev + (newWrong - wrongLetters));
-
-  //   if (val === currentWord) {
-  //     setHasAnswered(true);
-  //     setFeedback("✅ Вірно!");
-  //   } else {
-  //     setFeedback(""); // Очистити фідбек, якщо не вірно
-  //   }
-  // };
-
   const handleNext = () => {
+    setCorrectLetters((prev) => prev + correctLettersCurrent);
+    setCorrectLettersCurrent(0);
     if (round < NUMBER) {
       setRound((r) => r + 1);
     } else {
-      onFinish({ correct: correctLetters, wrong: wrongLetters });
+      onFinish({
+        correct: correctLetters + correctLettersCurrent,
+        wrong: wrongLetters,
+      });
     }
   };
 
